@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="theme-color" content="#080d18">
+  <meta name="description" content="Victory Chess Academy – New Raipur's first chess coaching academy. Expert coaches, structured learning, weekly tournaments. Starting ₹1000/month.">
+  <title>Victory Chess Academy – Chess Coaching in New Raipur</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* =============================================
+       RESET & BASE — works on all browsers
+    ============================================= */
+    *, *::before, *::after {
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      background-color: #080d18;
+      color: #f5f2ec;
+      font-family: 'Raleway', 'Segoe UI', Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; -webkit-tap-highlight-color: transparent; }
+    ul { list-style: none; }
+    img { max-width: 100%; display: block; }
+    button { cursor: pointer; font-family: inherit; }
+
+    /* =============================================
+       CSS VARIABLES
+    ============================================= */
+    :root {
+      --navy:    #080d18;
+      --card:    #0e1624;
+      --gold:    #c9a84c;
+      --gold2:   #e0bc6a;
+      --white:   #f5f2ec;
+      --off:     #c8c4ba;
+      --muted:   #6b7590;
+      --bdr:     rgba(201,168,76,0.18);
+      --bdr2:    rgba(201,168,76,0.45);
+      --green:   #1aad54;
+      --green2:  #158f44;
+      --fd:      'Cinzel', Georgia, serif;
+      --fb:      'Raleway', 'Segoe UI', Arial, sans-serif;
+    }
+
+    /* =============================================
+       SCROLLBAR
+    ============================================= */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #080d18; }
+    ::-webkit-scrollbar-thumb { background: #c9a84c; border-radius: 3px; }
+
+    /* =============================================
+       LAYOUT
+    ============================================= */
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+    .section { padding: 80px 0; position: relative; z-index: 1; }
+    .section-sm { padding: 60px 0; position: relative; z-index: 1; }
+
+    /* =============================================
+       CHESS BOARD BG TEXTURE
+    ============================================= */
+    .chess-bg {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image:
+        -webkit-linear-gradient(45deg, rgba(201,168,76,0.018) 25%, transparent 25%),
+        -webkit-linear-gradient(-45deg, rgba(201,168,76,0.018) 25%, transparent 25%),
+        -webkit-linear-gradient(45deg, transparent 75%, rgba(201,168,76,0.018) 75%),
+        -webkit-linear-gradient(-45deg, transparent 75%, rgba(201,168,76,0.018) 75%);
+      background-image:
+        linear-gradient(45deg, rgba(201,168,76,0.018) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(201,168,76,0.018) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, rgba(201,168,76,0.018) 75%),
+        linear-gradient(-45deg, transparent 75%, rgba(201,168,76,0.018) 75%);
+      background-size: 64px 64px;
+      background-position: 0 0, 0 32px, 32px -32px, -32px 0;
+    }
+
+    /* =============================================
+       TYPOGRAPHY HELPERS
+    ============================================= */
+    .label {
+      display: block;
+      font-family: var(--fb);
+      font-size: 0.67rem;
+      font-weight: 700;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .heading {
+      font-family: var(--fd);
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .heading .gold { color: var(--gold); font-style: normal; }
+    .lead {
+      font-size: 1rem;
+      color: var(--off);
+      max-width: 580px;
+      line-height: 1.8;
+    }
+    .gold-bar {
+      width: 48px; height: 3px;
+      background: var(--gold);
+      border-radius: 2px;
+      margin-bottom: 40px;
+    }
+    .center { text-align: center; }
+    .center .gold-bar { margin-left: auto; margin-right: auto; }
+    .center .lead { margin-left: auto; margin-right: auto; }
+
+    /* Responsive heading sizes */
+    @media (max-width: 768px) { .heading { font-size: 1.9rem; } }
+    @media (max-width: 480px) { .heading { font-size: 1.6rem; } }
+
+    /* =============================================
+       BUTTONS — works everywhere
+    ============================================= */
+    .btn {
+      display: -webkit-inline-flex;
+      display: inline-flex;
+      -webkit-align-items: center;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--fd);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 13px 28px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      -webkit-transition: all 0.25s ease;
+      transition: all 0.25s ease;
+      text-decoration: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn-gold {
+      background: -webkit-linear-gradient(135deg, #c9a84c, #e0bc6a);
+      background: linear-gradient(135deg, #c9a84c, #e0bc6a);
+      color: #05090f;
+      -webkit-box-shadow: 0 4px 20px rgba(201,168,76,0.3);
+      box-shadow: 0 4px 20px rgba(201,168,76,0.3);
+    }
+    .btn-gold:hover { -webkit-transform: translateY(-2px); transform: translateY(-2px); -webkit-box-shadow: 0 6px 28px rgba(201,168,76,0.5); box-shadow: 0 6px 28px rgba(201,168,76,0.5); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--gold);
+      border: 1.5px solid var(--gold);
+    }
+    .btn-ghost:hover { background: rgba(201,168,76,0.07); -webkit-transform: translateY(-2px); transform: translateY(-2px); }
+    .btn-wa {
+      background: var(--green);
+      color: #ffffff;
+      -webkit-box-shadow: 0 4px 20px rgba(26,173,84,0.35);
+      box-shadow: 0 4px 20px rgba(26,173,84,0.35);
+    }
+    .btn-wa:hover { background: var(--green2); -webkit-transform: translateY(-2px); transform: translateY(-2px); -webkit-box-shadow: 0 6px 28px rgba(26,173,84,0.5); box-shadow: 0 6px 28px rgba(26,173,84,0.5); }
+    .btn-wa svg { width: 17px; height: 17px; fill: #ffffff; -webkit-flex-shrink: 0; flex-shrink: 0; }
+
+    /* =============================================
+       CARD
+    ============================================= */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--bdr);
+      border-radius: 8px;
+      -webkit-transition: border-color 0.3s ease, -webkit-box-shadow 0.3s ease;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover { border-color: var(--bdr2); -webkit-box-shadow: 0 6px 36px rgba(201,168,76,0.1); box-shadow: 0 6px 36px rgba(201,168,76,0.1); }
+
+    /* =============================================
+       PAGE TABS SYSTEM
+    ============================================= */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* =============================================
+       NAVBAR
+    ============================================= */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 900;
+      background: rgba(8,13,24,0.96);
+      -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--bdr);
+    }
+    .nav-inner {
+      max-width: 1080px; margin: 0 auto; padding: 0 20px;
+      display: -webkit-flex; display: flex;
+      -webkit-align-items: center; align-items: center;
+      -webkit-justify-content: space-between; justify-content: space-between;
+      height: 66px;
+    }
+    .nav-logo {
+      display: -webkit-flex; display: flex;
+      -webkit-align-items: center; align-items: center;
+      gap: 10px; cursor: pointer;
+    }
+    .nav-logo-icon {
+      width: 36px; height: 36px; border-radius: 4px;
+      background: -webkit-linear-gradient(135deg,#c9a84c,#e0bc6a);
+      background: linear-gradient(135deg,#c9a84c,#e0bc6a);
+      display: -webkit-flex; display: flex;
+      -webkit-align-items: center; align-items: center;
+      -webkit-justify-content: center; justify-content: center;
+      font-size: 1.1rem; color: #05090f;
+    }
+    .nav-logo-name { font-family: var(--fd); font-size: 0.95rem; font-weight: 700; color: var(--white); }
+    .nav-logo-sub { font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-top: 1px; }
+    .nav-links { display: -webkit-flex; display: flex; gap: 4px; }
+    .nav-link {
+      font-size: 0.76rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--off); padding: 8px 12px; border-radius: 3px; cursor: pointer;
+      -webkit-transition: color 0.2s; transition: color 0.2s;
+      background: none; border: none;
+    }
+    .nav-link:hover, .nav-link.active { color: var(--gold2); }
+    .nav-cta {
+      font-family: var(--fd); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      background: -webkit-linear-gradient(135deg,#c9a84c,#e0bc6a);
+      background: linear-gradient(135deg,#c9a84c,#e0bc6a);
+      color: #05090f; padding: 9px 20px; border-radius: 3px; cursor: pointer;
+      -webkit-transition: all 0.25s ease; transition: all 0.25s ease;
+      white-space: nowrap; border: none;
+    }
+    .nav-cta:hover { -webkit-transform: translateY(-1px); transform: translateY(-1px); }
+    .hamburger {
+      display: none;
+      -webkit-flex-direction: column; flex-direction: column;
+      gap: 5px; cursor: pointer; padding: 4px; background: none; border: none;
+    }
+    .hamburger span { width: 22px; height: 2px; background: var(--gold); border-radius: 1px; display: block; }
+    @media (max-width: 768px) { .nav-links, .nav-cta { display: none; } .hamburger { display: -webkit-flex; display: flex; } }
+
+    /* Mobile menu */
+    .mob-menu {
+      display: none;
+      position: fixed; top: 66px; left: 0; right: 0; z-index: 899;
+      background: rgba(8,13,24,0.98);
+      border-bottom: 1px solid var(--bdr);
+      padding: 16px 20px 24px;
+      -webkit-flex-direction: column; flex-direction: column;
+      gap: 2px;
+    }
+    .mob-menu.open { display: -webkit-flex; display: flex; }
+    .mob-link {
+      padding: 12px 14px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--off); cursor: pointer; border-radius: 4px;
+      -webkit-transition: color 0.2s; transition: color 0.2s;
+      border-bottom: 1px solid rgba(201,168,76,0.06);
+      background: none; border-left: none; border-right: none; border-top: none; width: 100%; text-align: left;
+    }
+    .mob-link:hover { color: var(--gold); }
+    .mob-enroll {
+      margin-top: 14px; padding: 13px; text-align: center; border-radius: 3px;
+      background: -webkit-linear-gradient(135deg,#c9a84c,#e0bc6a);
+      background: linear-gradient(135deg,#c9a84c,#e0bc6a);
+      color: #05090f; font-family: var(--fd); font-size: 0.75rem;
+      font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      cursor: pointer; border: none; width: 100%;
+    }
+
+    /* =============================================
+       FLOATING WHATSAPP BUTTON
+    ============================================= */
+    .wa-float {
+      position: fixed;
+      bottom: 24px; right: 24px;
+      z-index: 9999;
+      display: -webkit-flex; display: flex;
+      -webkit-align-items: center; align-items: center;
+      gap: 9px;
+      background: #1aad54;
+      color: #ffffff;
+      padding: 13px 20px 13px 15px;
+      border-radius: 50px;
+      -webkit-box-shadow: 0 4px 22px rgba(26,173,84,0.5);
+      box-shadow: 0 4px 22px rgba(26,173,84,0.5);
+      font-family: var(--fb);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      white-space: nowrap;
+      -webkit-transition: background 0.25s ease, -webkit-transform 0.25s ease, -webkit-box-shadow 0.25s ease;
+      transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .wa-float:hover { background: #158f44; -webkit-transform: translateY(-2px); transform: translateY(-2px); -webkit-box-shadow: 0 7px 28px rgba(26,173,84,0.65); box-shadow: 0 7px 28px rgba(26,173,84,0.65); }
+    .wa-float svg { width: 22px; height: 22px; fill: #ffffff; -webkit-flex-shrink: 0; flex-shrink: 0; }
+    @media (max-width: 480px) {
+      .wa-float { padding: 14px; border-radius: 50%; bottom: 18px; right: 18px; }
+      .wa-float .wa-label { display: none; }
+    }
+
+    /* =============================================
+       HERO
+    ============================================= */
+    .hero {
+      min-height: calc(100vh - 66px);
+      display: -webkit-flex; display: flex;
+      -webkit-align-items: center; align-items: center;
+      padding: 80px 0 60px;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: -webkit-radial-gradient(ellipse 70% 50% at 50% 0%, rgba(201,168,76,0.1) 0%, transparent 65%);
+      background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(201,168,76,0.1) 0%, transparent 65%);
+    }
+    .hero-king {
+      position: absolute; right: -40px; bottom: -60px;
+      font-size: 440px; line-height: 1;
+      color: rgba(201,168,76,0.04);
+      -webkit-user-select: none; -moz-user-select: none; user-select: none;
+      pointer-events: none;
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 680px; }
+    .hero-tag {
+      display: -webkit-inline-flex; display: inline-flex;
+      -webkit-align-items: center; align-items: center;
+      gap: 8px;
+      border: 1px solid var(--bdr); border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 0.69rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold); background: rgba(201,168,76,0.06);
+      margin-bottom: 26px;
+    }
+    .hero-h1 {
+      font-family: var(--fd);
+      font-size: 4.2rem;
+      font-weight: 900; line-height: 1.05;
+      color: var(--white); margin-bottom: 10px;
+    }
+    .hero-h1 .gold { color: var(--gold); font-style: normal; }
+    .hero-sub {
+      font-size: 1.08rem; color: var(--off);
+      margin-bottom: 36px; line-height: 1.75; max-width: 520px;
+    }
+    .hero-btns {
+      display: -webkit-flex; display: flex;
+      gap: 14px; -webkit-flex-wrap: wrap; flex-wrap: wrap;
+      margin-bottom: 52px;
+    }
+    .hero-divider {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+      background: -webkit-linear-gradient(left, transparent, #c9a84c, transparent);
+      background: linear-gradient(to right, transparent, #c9a84c, transparent);
+    }
+    .hero-stats {
+      display: -webkit-flex; display: flex;
+      gap: 36px; -webkit-flex-wrap: wrap; flex-wrap: wrap;
+    }
+    .stat-num { font-family: var(--fd); font-size: 1.9rem; font-weight: 900; color: var(--gold); line-height: 1; }
+    .stat-lbl { font-size: 0.67rem; color: var(--muted); letter-spacing: 0.14em; text-transform: uppercase; margin-top: 3px; }
+
+    @media (max-width: 768px) { .hero-h1 { font-size: 2.8rem; } .hero-king { font-size: 260px; } }
+    @media (max-width: 480px) { .hero-h1 { font-size: 2.2rem; } .hero-btns { -webkit-flex-direction: column; flex-direction: column; } .hero-stats { gap: 22px; } .hero-king { display: none; } }
+
+    /* =============================================
+       WHY CHOOSE US GRID
+    ============================================= */
+    .why-grid {
+      display: -webkit-flex; display: flex;
+      -webkit-flex-wrap: wrap; flex-wrap: wrap;
+      gap: 18px;
+      margin-top: 10px;
+    }
+    .why-card {
+      -webkit-flex: 1 1 180px; flex: 1 1 180px;
+      padding: 28px 22px; text-align: center;
+    }
+    .why-icon {
+      font-size: 1.6rem;
+      width: 52px; height: 52px; border-radius: 50%;
+      border: 1px solid var(--bdr);
+      background: rgba(201,168,76,0.06);
+      display: -webkit-flex; display: flex;
+      -webkit-align-items: center; align-items: center;
+      -webkit-justify-content: center; justify-content: center;
+      margin: 0 auto 16px;
+    }
+    .why-title { font-family: var(--fd); font-size: 0.88rem; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+    .why-desc { font-size: 0.81rem; color: var(--muted); line-height: 1.6; }
+    @media (max-width: 640px) { .why-card { -webkit-flex: 1 1 calc(50% - 9px); flex: 1 1 calc(50% - 9px); } }
+    @media (max-width: 380px) { .why-card { -webkit-flex: 1 1 100%; flex: 1 1 100%; } }
+
+    /* =============================================
+       PRICING GRID
+    ============================================= */
+    .pricing-grid {
+      display: -webkit-flex; display: flex;
+      gap: 20px; -webkit-flex-wrap: wrap; flex-wrap: wrap;
+      max-width: 760px; margin: 0 auto;
+    }
+    .price-card {
+      -webkit-flex: 1 1 300px; flex: 1 1 300px;
+      padding: 38px 32px; position: relative; overflow: hidden;
+    }
+    .price-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: -webkit-linear-gradient(left,#c9a84c,#e0bc6a);
+      background: linear-gradient(to right,#c9a84c,#e0bc6a);
+    }
+    .price-card.featured {
+      background: -webkit-linear-gradient(160deg,#0e1c34,#0f1a2e);
+      background: linear-gradient(160deg,#0e1c34,#0f1a2e);
+      border-color: rgba(201,168,76,0.4);
+    }
+    .price-badge {
+      position: absolute; top: 16px; right: 16px;
+      background: var(--gold); color: #05090f;
+      font-size: 0.57rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 100px;
+    }
+    .price-plan { font-size: 0.67rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+    .price-dur { font-family: var(--fd); font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: 22px; }
+    .price-amount {
+      font-family: var(--fd); font-weight: 900; color: var(--gold); line-height: 1;
+      display: -webkit-flex; display: flex;
+      -webkit-align-items: flex-start; align-items: flex-start;
+      gap: 3px; margin-bottom: 6px;
+    }
+    .price-sym { font-size: 1.55rem; margin-top: 5px; }
+    .price-num { font-size: 3.8rem; }
+    .price-per { font-size: 0.83rem; color: var(--muted); -webkit-align-self: flex-end; align-self: flex-end; margin-bottom: 8px; }
+    .price-note { font-size: 0.79rem; color: var(--muted); margin-bottom: 22px; }
+    .price-divider { height: 1px; background: var(--bdr); margin: 20px 0; }
+    .price-list { display: -webkit-flex; display: flex; -webkit-flex-direction: column; flex-direction: column; gap: 9px; margin-bottom: 28px; }
+    .price-item { display: -webkit-flex; display: flex; gap: 9px; -webkit-align-items: center; align-items: center; font-size: 0.84rem; color: var(--off); }
+    .price-item::before { content: '✓'; color: var(--gold); font-weight: 800; -webkit-flex-shrink: 0; flex-shrink: 0; }
+    .price-discount {
+      margin: 20px auto 0; padding: 15px 18px; text-align: center;
+      background: rgba(201,168,76,0.07); border: 1px solid var(--bdr); border-radius: 6px;
+      font-size: 0.86rem; color: var(--off); max-width: 760px;
+    }
+    .price-discount strong { color: var(--gold); }
+    .price-discount span { color: var(--gold); cursor: pointer; }
+
+    /* =============================================
+       COACHES PREVIEW
+    ============================================= */
+    .coaches-grid {
+      display: -webkit-flex; display: flex;
+      gap: 20px; -webkit-flex-wrap: wrap; flex-wrap: wrap;
+    }
+    .coach-card {
+      -webkit-flex: 1 1 320px; flex: 1 1 320px;
+      padding: 30px 26px;
+    }
+    .coach-av {
+      width: 62px; height: 62px; border-radius: 50%;
+      background: -webkit-linear-gradient(135deg,#c9a84c,#e0bc6a);
+      background: linear-gradient(135deg,#c9a84c,#e0bc6a);
+      display: -webkit-flex; display: flex;
+      -webkit-align-items: center; align-items: center;
+      -webkit-justify-content: center; justify-content: center;
+      font-family: var(--fd); font-size: 1.2rem; font-weight: 900; color: #05090f;
+      margin-bottom: 16px;
+      -webkit-box-shadow: 0 0 0 3px rgba(201,168,76,0.2); box-shadow: 0 0 0 3px rgba(201,168,76,0.2);
+    }
+    .coach-name { font-family: var(--fd); font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+    .coach-role { font-size: 0.69rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+    .coach-rating {
+      display: -webkit-inline-flex; display: inline-flex;
+      -webkit-align-items: center; align-items: center;
+      gap: 5px; background: rgba(201,168,76,0.1); border: 1px solid var(--bdr);
+      color: var(--gold2); font-size: 0.71rem; font-weight: 700; letter-spacing: 0.08em;
+      padding: 4px 11px; border-radius: 100px; margin-bottom: 14px;
+    }
+    .coach-points { display: -webkit-flex; display: flex; -webkit-flex-direction: column; flex-direction: column; gap: 7px; }
+    .coach-pt { display: -webkit-flex; display: flex; gap: 9px; -webkit-align-items: flex-start; align-items: flex-start; font-size: 0.82rem; color: var(--off); line-height: 1.5; }
+    .coach-pt span:first-child { -webkit-flex-shrink: 0; flex-shrink: 0; }
+
+    /* =============================================
+       TESTIMONIALS
+    ============================================= */
+    .testi-grid {
+      display: -webkit-flex; display: flex;
+      gap: 20px; -webkit-flex-wrap: wrap; flex-wrap: wrap;
+      max-width: 840px; margin: 0 auto;
+    }
+    .testi-card {
+      -webkit-flex: 1 1 320px; flex: 1 1 320px;
+      padding: 28px 24px; position: relative;
+    }
+    .testi-q {
+      position: absolute; top: 14px; left: 18px;
+      font-family: Georgia, serif; font-size: 3.8rem;
+      color: rgba(201,168,76,0.1); line-height: 1; pointer-events: none;
+    }
+    .testi-stars { display: -webkit-flex; display: flex; gap: 2px; margin-bottom: 10px; margin-top: 8px; }
+    .testi-stars span { color: var(--gold); font-size: 0.84rem; }
+    .testi-text { font-size: 0.89rem; color: var(--off); line-height: 1.75; font-style: italic; margin-bottom: 18px; }
+    .testi-author { display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center; gap: 10px; }
+    .testi-av {
+      width: 36px; height: 36px; border-radius: 50%; -webkit-flex-shrink: 0; flex-shrink: 0;
+      background: -webkit-linear-gradient(135deg,#c9a84c,#e0bc6a); background: linear-gradient(135deg,#c9a84c,#e0bc6a);
+      display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center;
+      -webkit-justify-content: center; justify-content: center;
+      font-family: var(--fd); font-size: 0.8rem; font-weight: 700; color: #05090f;
+    }
+    .testi-name { font-size: 0.84rem; font-weight: 700; color: var(--white); }
+    .testi-meta { font-size: 0.71rem; color: var(--muted); }
+
+    /* =============================================
+       CTA STRIP
+    ============================================= */
+    .cta-strip {
+      background: -webkit-linear-gradient(135deg,#0c1828,#0f1f38);
+      background: linear-gradient(135deg,#0c1828,#0f1f38);
+      border: 1px solid var(--bdr); border-radius: 10px;
+      padding: 50px 40px; text-align: center; position: relative; overflow: hidden;
+    }
+    .cta-btns {
+      display: -webkit-flex; display: flex;
+      gap: 14px; -webkit-justify-content: center; justify-content: center;
+      -webkit-flex-wrap: wrap; flex-wrap: wrap;
+      margin-top: 26px;
+    }
+    @media (max-width: 480px) { .cta-strip { padding: 36px 20px; } }
+
+    /* =============================================
+       ABOUT PAGE
+    ============================================= */
+    .about-grid {
+      display: -webkit-flex; display: flex;
+      gap: 60px; -webkit-flex-wrap: wrap; flex-wrap: wrap;
+      -webkit-align-items: center; align-items: center;
+    }
+    .about-board-wrap { position: relative; -webkit-flex: 1 1 280px; flex: 1 1 280px; min-width: 280px; }
+    .chess-board {
+      display: -webkit-flex; display: flex; -webkit-flex-wrap: wrap; flex-wrap: wrap;
+      width: 100%; border: 2px solid var(--bdr); border-radius: 6px; overflow: hidden;
+      -webkit-box-shadow: 0 0 40px rgba(201,168,76,0.1); box-shadow: 0 0 40px rgba(201,168,76,0.1);
+    }
+    .bs { width: 12.5%; aspect-ratio: 1; display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center; -webkit-justify-content: center; justify-content: center; font-size: 0.9rem; }
+    .bs.l { background: rgba(201,168,76,0.1); }
+    .bs.d { background: rgba(201,168,76,0.03); }
+    .about-badge {
+      position: absolute; bottom: -14px; right: -14px;
+      background: -webkit-linear-gradient(135deg,#c9a84c,#e0bc6a);
+      background: linear-gradient(135deg,#c9a84c,#e0bc6a);
+      color: #05090f; padding: 16px 18px; border-radius: 6px; text-align: center;
+      font-family: var(--fd); -webkit-box-shadow: 0 6px 28px rgba(201,168,76,0.35); box-shadow: 0 6px 28px rgba(201,168,76,0.35);
+    }
+    .about-badge .ab-num { font-size: 1.7rem; font-weight: 900; display: block; line-height: 1; }
+    .about-badge .ab-lbl { font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.8; }
+    .about-content { -webkit-flex: 1 1 320px; flex: 1 1 320px; }
+    .about-list { display: -webkit-flex; display: flex; -webkit-flex-direction: column; flex-direction: column; gap: 11px; margin-top: 22px; }
+    .about-item {
+      display: -webkit-flex; display: flex; gap: 12px; -webkit-align-items: flex-start; align-items: flex-start;
+      padding: 13px 16px; background: var(--card); border: 1px solid var(--bdr); border-radius: 6px;
+      -webkit-transition: border-color 0.3s; transition: border-color 0.3s;
+    }
+    .about-item:hover { border-color: var(--bdr2); }
+    .about-item .ai-icon { -webkit-flex-shrink: 0; flex-shrink: 0; font-size: 0.95rem; }
+    .about-item p { font-size: 0.86rem; color: var(--off); line-height: 1.55; }
+    .about-item p strong { color: var(--white); }
+    @media (max-width: 768px) { .about-board-wrap { display: none; } }
+
+    /* =============================================
+       COACHES FULL PAGE
+    ============================================= */
+    .coaches-full { display: -webkit-flex; display: flex; -webkit-flex-direction: column; flex-direction: column; gap: 32px; }
+    .cf-card { overflow: hidden; }
+    .cf-top {
+      display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center;
+      gap: 22px; padding: 28px 32px; border-bottom: 1px solid var(--bdr);
+      background: rgba(201,168,76,0.03); -webkit-flex-wrap: wrap; flex-wrap: wrap;
+    }
+    .cf-av {
+      width: 76px; height: 76px; border-radius: 50%; -webkit-flex-shrink: 0; flex-shrink: 0;
+      background: -webkit-linear-gradient(135deg,#c9a84c,#e0bc6a); background: linear-gradient(135deg,#c9a84c,#e0bc6a);
+      display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center;
+      -webkit-justify-content: center; justify-content: center;
+      font-family: var(--fd); font-size: 1.4rem; font-weight: 900; color: #05090f;
+      -webkit-box-shadow: 0 0 0 4px rgba(201,168,76,0.2); box-shadow: 0 0 0 4px rgba(201,168,76,0.2);
+    }
+    .cf-meta { -webkit-flex: 1; flex: 1; min-width: 180px; }
+    .cf-name { font-family: var(--fd); font-size: 1.35rem; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+    .cf-role { font-size: 0.69rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+    .cf-pills { display: -webkit-flex; display: flex; gap: 7px; -webkit-flex-wrap: wrap; flex-wrap: wrap; }
+    .pill {
+      display: -webkit-inline-flex; display: inline-flex; -webkit-align-items: center; align-items: center;
+      gap: 4px; padding: 5px 11px; border-radius: 100px;
+      font-size: 0.71rem; font-weight: 700; letter-spacing: 0.05em;
+      border: 1px solid var(--bdr); background: rgba(201,168,76,0.08); color: var(--gold2);
+    }
+    .cf-body { padding: 24px 32px; }
+    .ach-group { margin-bottom: 22px; }
+    .ach-group:last-child { margin-bottom: 0; }
+    .ach-label {
+      font-size: 0.65rem; font-weight: 800; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 13px;
+      display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center; gap: 9px;
+    }
+    .ach-label::after { content: ''; -webkit-flex: 1; flex: 1; height: 1px; background: var(--bdr); }
+    .ach-items { display: -webkit-flex; display: flex; -webkit-flex-wrap: wrap; flex-wrap: wrap; gap: 9px; }
+    .ach-item {
+      -webkit-flex: 1 1 calc(50% - 5px); flex: 1 1 calc(50% - 5px);
+      display: -webkit-flex; display: flex; gap: 9px; -webkit-align-items: flex-start; align-items: flex-start;
+      padding: 10px 13px; background: rgba(255,255,255,0.02); border: 1px solid var(--bdr); border-radius: 6px;
+      font-size: 0.83rem; color: var(--off); line-height: 1.5;
+      -webkit-transition: border-color 0.3s; transition: border-color 0.3s;
+    }
+    .ach-item:hover { border-color: rgba(201,168,76,0.3); }
+    .ach-item.full { -webkit-flex: 1 1 100%; flex: 1 1 100%; }
+    .ach-item .ei { -webkit-flex-shrink: 0; flex-shrink: 0; }
+    .gm-box {
+      display: -webkit-flex; display: flex; gap: 14px; -webkit-align-items: center; align-items: center;
+      background: rgba(201,168,76,0.07); border: 1px solid rgba(201,168,76,0.3); border-radius: 8px;
+      padding: 15px 17px; margin-top: 16px;
+    }
+    .gm-icon { font-size: 1.7rem; -webkit-flex-shrink: 0; flex-shrink: 0; }
+    .gm-box p { font-size: 0.85rem; color: var(--off); line-height: 1.55; }
+    .gm-box p strong { color: var(--gold2); display: block; margin-bottom: 2px; }
+    .coach-trust {
+      margin-top: 36px; padding: 26px 30px; text-align: center;
+      background: rgba(201,168,76,0.05); border: 1px solid var(--bdr); border-radius: 8px;
+    }
+    .coach-trust p { font-size: 0.9rem; color: var(--off); max-width: 600px; margin: 0 auto 18px; line-height: 1.8; }
+    @media (max-width: 640px) {
+      .cf-top { padding: 22px 20px; }
+      .cf-body { padding: 20px; }
+      .ach-item { -webkit-flex: 1 1 100%; flex: 1 1 100%; }
+    }
+
+    /* =============================================
+       CONTACT PAGE
+    ============================================= */
+    .contact-grid {
+      display: -webkit-flex; display: flex;
+      gap: 44px; -webkit-flex-wrap: wrap; flex-wrap: wrap;
+    }
+    .contact-blocks {
+      -webkit-flex: 1 1 260px; flex: 1 1 260px;
+      display: -webkit-flex; display: flex; -webkit-flex-direction: column; flex-direction: column; gap: 14px;
+    }
+    .cblock { padding: 20px 18px; -webkit-transition: border-color 0.3s; transition: border-color 0.3s; }
+    .cblock:hover { border-color: var(--bdr2); }
+    .cblock-title { font-size: 0.65rem; font-weight: 800; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 7px; }
+    .cblock-val { font-size: 0.97rem; font-weight: 600; color: var(--white); line-height: 1.7; }
+    .cblock-val a:hover { color: var(--gold); }
+    .cblock-hl { border-color: rgba(201,168,76,0.4); background: rgba(201,168,76,0.06); }
+    .contact-form-wrap { -webkit-flex: 1 1 340px; flex: 1 1 340px; }
+    .contact-form { padding: 34px 30px; }
+    .form-title { font-family: var(--fd); font-size: 1.2rem; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+    .form-sub { font-size: 0.83rem; color: var(--muted); margin-bottom: 24px; }
+    .form-group { margin-bottom: 16px; }
+    .form-label { display: block; font-size: 0.71rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+    .form-input, .form-textarea {
+      width: 100%; background: rgba(255,255,255,0.035);
+      border: 1px solid var(--bdr); border-radius: 4px;
+      padding: 11px 14px; color: var(--white);
+      font-family: var(--fb); font-size: 0.92rem;
+      -webkit-transition: border-color 0.3s; transition: border-color 0.3s; outline: none;
+      -webkit-appearance: none; appearance: none;
+    }
+    .form-input:focus, .form-textarea:focus { border-color: var(--gold); background: rgba(201,168,76,0.04); }
+    .form-input::-webkit-input-placeholder { color: var(--muted); }
+    .form-input:-ms-input-placeholder { color: var(--muted); }
+    .form-input::placeholder { color: var(--muted); }
+    .form-textarea::-webkit-input-placeholder { color: var(--muted); }
+    .form-textarea::placeholder { color: var(--muted); }
+    .form-textarea { resize: vertical; min-height: 105px; }
+    .form-btn {
+      width: 100%; padding: 13px; border: none; border-radius: 4px; cursor: pointer;
+      background: -webkit-linear-gradient(135deg,#c9a84c,#e0bc6a);
+      background: linear-gradient(135deg,#c9a84c,#e0bc6a);
+      color: #05090f; font-family: var(--fd); font-size: 0.77rem; font-weight: 700;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      -webkit-transition: all 0.25s ease; transition: all 0.25s ease;
+    }
+    .form-btn:hover { -webkit-transform: translateY(-2px); transform: translateY(-2px); -webkit-box-shadow: 0 6px 28px rgba(201,168,76,0.4); box-shadow: 0 6px 28px rgba(201,168,76,0.4); }
+    .form-ok {
+      display: none; margin-top: 12px; padding: 11px 14px; text-align: center;
+      background: rgba(201,168,76,0.1); border: 1px solid var(--gold); border-radius: 4px;
+      color: var(--gold); font-size: 0.87rem;
+    }
+    @media (max-width: 640px) { .contact-form { padding: 24px 18px; } }
+
+    /* =============================================
+       FOOTER
+    ============================================= */
+    footer {
+      background: var(--card); border-top: 1px solid var(--bdr);
+      padding: 50px 0 22px; position: relative; z-index: 1;
+    }
+    .footer-grid {
+      display: -webkit-flex; display: flex;
+      gap: 40px; -webkit-flex-wrap: wrap; flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+    .footer-col { -webkit-flex: 1 1 180px; flex: 1 1 180px; }
+    .footer-name { font-family: var(--fd); font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+    .footer-tag { font-size: 0.78rem; color: var(--muted); margin-bottom: 16px; }
+    .footer-ci { display: -webkit-flex; display: flex; gap: 8px; font-size: 0.84rem; color: var(--off); margin-bottom: 7px; }
+    .footer-ci .icon { color: var(--gold); }
+    .footer-col-h { font-size: 0.65rem; font-weight: 800; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+    .footer-links { display: -webkit-flex; display: flex; -webkit-flex-direction: column; flex-direction: column; gap: 8px; }
+    .footer-link { font-size: 0.83rem; color: var(--off); cursor: pointer; -webkit-transition: color 0.2s; transition: color 0.2s; background: none; border: none; text-align: left; }
+    .footer-link:hover { color: var(--gold); }
+    .footer-bottom {
+      border-top: 1px solid var(--bdr); padding-top: 18px;
+      display: -webkit-flex; display: flex;
+      -webkit-justify-content: space-between; justify-content: space-between;
+      -webkit-align-items: center; align-items: center;
+      -webkit-flex-wrap: wrap; flex-wrap: wrap; gap: 10px;
+    }
+    .footer-copy { font-size: 0.74rem; color: var(--muted); }
+    .footer-copy strong { color: var(--gold); }
+    .footer-pieces { font-size: 1.1rem; letter-spacing: 4px; opacity: 0.28; }
+    @media (max-width: 480px) { .footer-bottom { -webkit-flex-direction: column; flex-direction: column; text-align: center; } }
+
+    /* =============================================
+       SCROLL REVEAL
+    ============================================= */
+    .rv { opacity: 0; -webkit-transform: translateY(18px); transform: translateY(18px); -webkit-transition: opacity 0.55s ease, -webkit-transform 0.55s ease; transition: opacity 0.55s ease, transform 0.55s ease; }
+    .rv.in { opacity: 1; -webkit-transform: translateY(0); transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<div class="chess-bg"></div>
+
+<!-- =============================================
+     FLOATING WHATSAPP BUTTON
+============================================= -->
+<a class="wa-float"
+   href="https://wa.me/918435745001?text=Hello%2C%20I%20want%20to%20join%20Victory%20Chess%20Academy"
+   target="_blank"
+   rel="noopener noreferrer">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+  <span class="wa-label">Enroll on WhatsApp</span>
+</a>
+
+<!-- =============================================
+     NAVBAR
+============================================= -->
+<nav id="nav">
+  <div class="nav-inner">
+    <div class="nav-logo" onclick="goTo('home')">
+      <div class="nav-logo-icon">&#9823;</div>
+      <div>
+        <div class="nav-logo-name">Victory Chess</div>
+        <div class="nav-logo-sub">Academy · New Raipur</div>
+      </div>
+    </div>
+    <ul class="nav-links">
+      <li><button class="nav-link active" data-p="home"    onclick="goTo('home')">Home</button></li>
+      <li><button class="nav-link"        data-p="about"   onclick="goTo('about')">About</button></li>
+      <li><button class="nav-link"        data-p="courses" onclick="goTo('courses')">Courses</button></li>
+      <li><button class="nav-link"        data-p="coaches" onclick="goTo('coaches')">Coaches</button></li>
+      <li><button class="nav-link"        data-p="contact" onclick="goTo('contact')">Contact</button></li>
+    </ul>
+    <button class="nav-cta" onclick="goTo('contact')">Enroll Now</button>
+    <button class="hamburger" id="ham" onclick="toggleMob()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mob-menu" id="mob-menu">
+  <button class="mob-link" onclick="goTo('home');closeMob()">Home</button>
+  <button class="mob-link" onclick="goTo('about');closeMob()">About Us</button>
+  <button class="mob-link" onclick="goTo('courses');closeMob()">Courses &amp; Pricing</button>
+  <button class="mob-link" onclick="goTo('coaches');closeMob()">Coaches</button>
+  <button class="mob-link" onclick="goTo('contact');closeMob()">Contact</button>
+  <button class="mob-enroll" onclick="goTo('contact');closeMob()">&#9823; Enroll Now</button>
+</div>
+
+<main style="padding-top:66px">
+
+<!-- =============================================
+     HOME PAGE
+============================================= -->
+<div class="page active" id="page-home">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-content">
+        <div class="hero-tag">&#9823; New Raipur's First Chess Academy</div>
+        <h1 class="hero-h1">
+          <span class="gold">Become Top 1%</span><br>in Chess
+        </h1>
+        <p class="hero-sub">Join Victory Chess Academy — structured coaching for beginners and players under 1300 rating.</p>
+        <div class="hero-btns">
+          <!-- PRIMARY WHATSAPP BUTTON -->
+          <a class="btn btn-wa"
+             href="https://wa.me/918435745001?text=Hello%2C%20I%20want%20to%20join%20Victory%20Chess%20Academy"
+             target="_blank"
+             rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            Enroll Now on WhatsApp
+          </a>
+          <button class="btn btn-ghost" onclick="goTo('contact')">Contact Us</button>
+        </div>
+        <div class="hero-stats">
+          <div><div class="stat-num">2050</div><div class="stat-lbl">Coach Rating</div></div>
+          <div><div class="stat-num">15+</div><div class="stat-lbl">Medals Won</div></div>
+          <div><div class="stat-num">12+</div><div class="stat-lbl">Tournaments</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-king">&#9818;</div>
+    <div class="hero-divider"></div>
+  </section>
+
+  <!-- WHY CHOOSE US -->
+  <section class="section">
+    <div class="wrap">
+      <div class="center rv">
+        <span class="label">Why Choose Us</span>
+        <h2 class="heading">Everything You Need to <span class="gold">Excel at Chess</span></h2>
+        <div class="gold-bar"></div>
+      </div>
+      <div class="why-grid rv">
+        <div class="card why-card"><div class="why-icon">&#127942;</div><div class="why-title">Expert Coaches</div><p class="why-desc">Coaches with real tournament medals, state-level results, and a 2050 Chess.com rating.</p></div>
+        <div class="card why-card"><div class="why-icon">&#127919;</div><div class="why-title">Step-by-Step Learning</div><p class="why-desc">Structured curriculum: Opening &rarr; Middlegame &rarr; Endgame. Clear progress every month.</p></div>
+        <div class="card why-card"><div class="why-icon">&#127885;</div><div class="why-title">Weekly Tournaments</div><p class="why-desc">Compete every week and win prizes. Real match pressure practice — included free.</p></div>
+        <div class="card why-card"><div class="why-icon">&#127891;</div><div class="why-title">Beginner Friendly</div><p class="why-desc">Zero experience needed. Patient coaching that takes any beginner to competitive level.</p></div>
+        <div class="card why-card"><div class="why-icon">&#128176;</div><div class="why-title">Affordable Pricing</div><p class="why-desc">Starting at &#8377;1000/month. No hidden fees. Quality coaching at student-friendly prices.</p></div>
+        <div class="card why-card"><div class="why-icon">&#128205;</div><div class="why-title">Offline in New Raipur</div><p class="why-desc">New Raipur's first dedicated chess academy. Face-to-face coaching for better learning.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="section" style="padding-top:0">
+    <div class="wrap">
+      <div class="center rv">
+        <span class="label">Pricing</span>
+        <h2 class="heading">Simple, <span class="gold">Transparent</span> Fees</h2>
+        <div class="gold-bar"></div>
+      </div>
+      <div class="pricing-grid rv">
+        <div class="card price-card">
+          <div class="price-plan">Standard</div>
+          <div class="price-dur">Daily 1.5 Hours</div>
+          <div class="price-amount"><span class="price-sym">&#8377;</span><span class="price-num">1000</span><span class="price-per">/mo</span></div>
+          <div class="price-note">Perfect for beginners</div>
+          <div class="price-divider"></div>
+          <div class="price-list">
+            <div class="price-item">1.5 hrs coaching per day</div>
+            <div class="price-item">Opening theory &amp; tactics</div>
+            <div class="price-item">Endgame fundamentals</div>
+            <div class="price-item">Weekly prize tournament</div>
+          </div>
+          <button class="btn btn-ghost" style="width:100%;justify-content:center" onclick="goTo('contact')">Get Started</button>
+        </div>
+        <div class="card price-card featured">
+          <div class="price-badge">Best Value</div>
+          <div class="price-plan">Intensive</div>
+          <div class="price-dur">Daily 3 Hours</div>
+          <div class="price-amount"><span class="price-sym">&#8377;</span><span class="price-num">1500</span><span class="price-per">/mo</span></div>
+          <div class="price-note">Fastest improvement</div>
+          <div class="price-divider"></div>
+          <div class="price-list">
+            <div class="price-item">3 hrs intensive coaching daily</div>
+            <div class="price-item">Full opening + middlegame + endgame</div>
+            <div class="price-item">Game analysis &amp; review</div>
+            <div class="price-item">Weekly prize tournament</div>
+          </div>
+          <button class="btn btn-gold" style="width:100%;justify-content:center" onclick="goTo('contact')">&#9823; Enroll Now</button>
+        </div>
+      </div>
+      <div class="price-discount rv">&#127881; <strong>&#8377;200 Discount</strong> for the first 10 students — <span onclick="goTo('contact')">contact us to claim &rarr;</span></div>
+    </div>
+  </section>
+
+  <!-- COACHES PREVIEW -->
+  <section class="section" style="padding-top:0">
+    <div class="wrap">
+      <div class="center rv">
+        <span class="label">Your Coaches</span>
+        <h2 class="heading">Meet Your <span class="gold">Coaches</span></h2>
+        <div class="gold-bar"></div>
+        <p class="lead">Both coaches are competitive players with verified tournament records.</p>
+      </div>
+      <div class="coaches-grid rv" style="margin-top:38px">
+        <div class="card coach-card">
+          <div class="coach-av">PT</div>
+          <div class="coach-name">Pratik Tamrakar</div>
+          <div class="coach-role">Coach</div>
+          <div class="coach-rating">&#9823; Chess.com: 2050</div>
+          <div class="coach-points">
+            <div class="coach-pt"><span>&#129352;</span><span>2nd — State Level Chess Competition</span></div>
+            <div class="coach-pt"><span>&#129351;</span><span>1st — Sansad Khel Mahotsav, ITM University</span></div>
+            <div class="coach-pt"><span>&#9876;</span><span>Defeated a 1706 FIDE Rated Player</span></div>
+            <div class="coach-pt"><span>&#127979;</span><span>CBSE East Zonal, Kharagpur — 4/5 points</span></div>
+            <div class="coach-pt"><span>&#11088;</span><span>Met GM Pravin Thipsay (Coach of Viswanathan Anand)</span></div>
+            <div class="coach-pt"><span>&#127885;</span><span>15+ Medals &amp; 2 Trophies &middot; 12+ Tournaments</span></div>
+          </div>
+        </div>
+        <div class="card coach-card">
+          <div class="coach-av" style="background:linear-gradient(135deg,#8aa0b8,#b0c4d8)">DY</div>
+          <div class="coach-name">Deepak Yadav</div>
+          <div class="coach-role">Coach</div>
+          <div class="coach-rating" style="color:#90aac8;border-color:rgba(140,165,190,0.35);background:rgba(140,165,190,0.1)">&#9823; Chess.com: 1500</div>
+          <div class="coach-points">
+            <div class="coach-pt"><span>&#129351;</span><span>1st — District Level Chess Competition</span></div>
+            <div class="coach-pt"><span>&#129352;</span><span>2nd — Sansad Khel Mahotsav, ITM University</span></div>
+            <div class="coach-pt"><span>&#127979;</span><span>CBSE East Zonal, Kharagpur — 2/5 points</span></div>
+            <div class="coach-pt"><span>&#127885;</span><span>10+ Medals in competitive chess</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="center rv" style="margin-top:26px">
+        <button class="btn btn-ghost" onclick="goTo('coaches')">View Full Coach Profiles &rarr;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section" style="padding-top:0">
+    <div class="wrap">
+      <div class="center rv">
+        <span class="label">What Students Say</span>
+        <h2 class="heading">Student <span class="gold">Testimonials</span></h2>
+        <div class="gold-bar"></div>
+      </div>
+      <div class="testi-grid rv">
+        <div class="card testi-card">
+          <div class="testi-q">"</div>
+          <div class="testi-stars"><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span></div>
+          <p class="testi-text">"I had zero chess knowledge when I joined. Within 2 months I learned proper openings, tactics, and even won games in the weekly tournament. Coaching is very clear and patient."</p>
+          <div class="testi-author">
+            <div class="testi-av">RK</div>
+            <div><div class="testi-name">Rahul Kashyap</div><div class="testi-meta">Beginner Student &middot; New Raipur</div></div>
+          </div>
+        </div>
+        <div class="card testi-card">
+          <div class="testi-q">"</div>
+          <div class="testi-stars"><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span></div>
+          <p class="testi-text">"Best chess coaching in New Raipur. Concepts explained step-by-step. My Chess.com rating improved from 600 to 950 in 3 months. Highly recommend to anyone serious about chess."</p>
+          <div class="testi-author">
+            <div class="testi-av">AS</div>
+            <div><div class="testi-name">Ananya Sharma</div><div class="testi-meta">Student &middot; New Raipur</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="section-sm">
+    <div class="wrap">
+      <div class="cta-strip rv">
+        <h2 class="heading">Ready to Start <span class="gold">Learning Chess?</span></h2>
+        <p class="lead" style="margin:0 auto">Join New Raipur's first chess academy. Enroll today and start your journey.</p>
+        <div class="cta-btns">
+          <button class="btn btn-gold" onclick="goTo('contact')">&#9823; Enroll Now</button>
+          <button class="btn btn-ghost" onclick="goTo('contact')">Contact Us</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /home -->
+
+
+<!-- =============================================
+     ABOUT PAGE
+============================================= -->
+<div class="page" id="page-about">
+  <section class="section">
+    <div class="wrap">
+      <div class="about-grid">
+        <div class="about-board-wrap rv">
+          <div class="chess-board" id="chessBoard"></div>
+          <div class="about-badge">
+            <span class="ab-num">1st</span>
+            <span class="ab-lbl">In New Raipur</span>
+          </div>
+        </div>
+        <div class="about-content rv">
+          <span class="label">Our Story</span>
+          <h2 class="heading">Developing <span class="gold">Chess Champions</span> in New Raipur</h2>
+          <div class="gold-bar"></div>
+          <p class="lead" style="margin-bottom:14px">Victory Chess Academy was founded with one goal: provide high-quality chess coaching to students in New Raipur. We believe chess builds critical thinking, patience, and strategic vision.</p>
+          <p style="font-size:0.9rem;color:var(--off);max-width:540px;margin-bottom:24px;line-height:1.75">Our focus is on transforming beginners and intermediate players (under 1300 rating) into confident, competitive chess players through structured curriculum and personal attention.</p>
+          <div class="about-list">
+            <div class="about-item"><span class="ai-icon">&#128205;</span><p><strong>Located in New Raipur</strong> — the first dedicated chess academy in the area.</p></div>
+            <div class="about-item"><span class="ai-icon">&#127942;</span><p><strong>Experienced Coaches</strong> — competed at state level, CBSE zonals, and met a Grandmaster.</p></div>
+            <div class="about-item"><span class="ai-icon">&#9823;</span><p><strong>Offline &amp; Immersive</strong> — face-to-face coaching for better focus and faster learning.</p></div>
+            <div class="about-item"><span class="ai-icon">&#127919;</span><p><strong>Goal-Oriented Curriculum</strong> — openings, tactics, strategy, and endgames covered thoroughly.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div><!-- /about -->
+
+
+<!-- =============================================
+     COURSES PAGE
+============================================= -->
+<div class="page" id="page-courses">
+  <section class="section">
+    <div class="wrap">
+      <div class="center rv">
+        <span class="label">Pricing Plans</span>
+        <h2 class="heading">Simple, <span class="gold">Transparent</span> Pricing</h2>
+        <div class="gold-bar"></div>
+        <p class="lead">Choose the plan that fits your schedule. Both plans include weekly prize tournaments.</p>
+      </div>
+      <div class="pricing-grid rv" style="margin-top:44px">
+        <div class="card price-card">
+          <div class="price-plan">Standard Plan</div>
+          <div class="price-dur">Daily 1.5 Hours</div>
+          <div class="price-amount"><span class="price-sym">&#8377;</span><span class="price-num">1000</span><span class="price-per">/month</span></div>
+          <div class="price-note">Perfect for beginners building a foundation</div>
+          <div class="price-divider"></div>
+          <div class="price-list">
+            <div class="price-item">1.5 hrs of coaching per day</div>
+            <div class="price-item">Opening theory &amp; repertoire</div>
+            <div class="price-item">Tactical puzzles &amp; patterns</div>
+            <div class="price-item">Endgame fundamentals</div>
+            <div class="price-item">Weekly prize tournament included</div>
+            <div class="price-item">Progress tracking</div>
+          </div>
+          <button class="btn btn-ghost" style="width:100%;justify-content:center" onclick="goTo('contact')">Get Started</button>
+        </div>
+        <div class="card price-card featured">
+          <div class="price-badge">Best Value</div>
+          <div class="price-plan">Intensive Plan</div>
+          <div class="price-dur">Daily 3 Hours</div>
+          <div class="price-amount"><span class="price-sym">&#8377;</span><span class="price-num">1500</span><span class="price-per">/month</span></div>
+          <div class="price-note">Fastest path to improvement</div>
+          <div class="price-divider"></div>
+          <div class="price-list">
+            <div class="price-item">3 hrs intensive coaching daily</div>
+            <div class="price-item">Deep opening preparation</div>
+            <div class="price-item">Advanced tactics &amp; combinations</div>
+            <div class="price-item">Middlegame strategy &amp; plans</div>
+            <div class="price-item">Endgame mastery</div>
+            <div class="price-item">Weekly prize tournament included</div>
+            <div class="price-item">Game analysis &amp; review</div>
+          </div>
+          <button class="btn btn-gold" style="width:100%;justify-content:center" onclick="goTo('contact')">&#9823; Enroll Now</button>
+        </div>
+      </div>
+      <div class="price-discount rv">&#127881; <strong>&#8377;200 Discount</strong> for the first 10 students &nbsp;&middot;&nbsp; &#127942; <strong>Weekly Prize Tournament</strong> included in all plans</div>
+    </div>
+  </section>
+</div><!-- /courses -->
+
+
+<!-- =============================================
+     COACHES PAGE
+============================================= -->
+<div class="page" id="page-coaches">
+  <section class="section">
+    <div class="wrap">
+      <div class="center rv">
+        <span class="label">Your Coaches</span>
+        <h2 class="heading">Trained by <span class="gold">Champions.</span> Dedicated to Your Growth.</h2>
+        <div class="gold-bar"></div>
+        <p class="lead">Both coaches are competitive players with verified tournament records — not just teachers, but players who've been in the arena.</p>
+      </div>
+
+      <div class="coaches-full" style="margin-top:48px">
+
+        <!-- PRATIK -->
+        <div class="card cf-card rv">
+          <div class="cf-top">
+            <div class="cf-av">PT</div>
+            <div class="cf-meta">
+              <div class="cf-name">Pratik Tamrakar</div>
+              <div class="cf-role">Coach</div>
+              <div class="cf-pills">
+                <span class="pill">&#9823; Chess.com: 2050</span>
+                <span class="pill">&#127942; 15+ Medals</span>
+                <span class="pill">&#127885; 2 Trophies</span>
+                <span class="pill">&#9823; 12+ Tournaments</span>
+              </div>
+            </div>
+          </div>
+          <div class="cf-body">
+            <div class="ach-group">
+              <div class="ach-label">&#127942; Podium Finishes</div>
+              <div class="ach-items">
+                <div class="ach-item"><span class="ei">&#129351;</span><span><strong>1st</strong> — Sansad Khel Mahotsav, ITM University</span></div>
+                <div class="ach-item"><span class="ei">&#129351;</span><span><strong>1st Prize</strong> — Inter School Chess Competition</span></div>
+                <div class="ach-item"><span class="ei">&#129352;</span><span><strong>2nd</strong> — State Level Chess Competition</span></div>
+                <div class="ach-item"><span class="ei">&#129352;</span><span><strong>2nd</strong> — Sansad Khel Mahotsav, Jevodaya School</span></div>
+              </div>
+            </div>
+            <div class="ach-group">
+              <div class="ach-label">&#127966; Tournament Record</div>
+              <div class="ach-items">
+                <div class="ach-item"><span class="ei">&#127979;</span><span><strong>CBSE East Zonal</strong>, Kharagpur (West Bengal) — scored <strong>4/5 points</strong></span></div>
+                <div class="ach-item"><span class="ei">&#9876;</span><span>Defeated a <strong>1706 FIDE Rated</strong> player in competitive play</span></div>
+                <div class="ach-item full"><span class="ei">&#127885;</span><span>Won <strong>15+ medals and 2 trophies</strong>, played <strong>12+ offline tournaments</strong> across India</span></div>
+              </div>
+            </div>
+            <div class="ach-group">
+              <div class="ach-label">&#11088; Notable Highlight</div>
+              <div class="gm-box">
+                <span class="gm-icon">&#9819;</span>
+                <p><strong>Met GM Pravin Thipsay</strong> — International Grandmaster and personal coach of World Chess Champion Viswanathan Anand. A milestone that shaped Pratik's understanding of elite chess.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DEEPAK -->
+        <div class="card cf-card rv">
+          <div class="cf-top">
+            <div class="cf-av" style="background:linear-gradient(135deg,#8aa0b8,#b0c4d8)">DY</div>
+            <div class="cf-meta">
+              <div class="cf-name">Deepak Yadav</div>
+              <div class="cf-role">Coach</div>
+              <div class="cf-pills">
+                <span class="pill" style="color:#a0c0d8;border-color:rgba(140,165,190,0.35)">&#9823; Chess.com: 1500</span>
+                <span class="pill">&#127942; 10+ Medals</span>
+                <span class="pill">&#129351; District Champion</span>
+              </div>
+            </div>
+          </div>
+          <div class="cf-body">
+            <div class="ach-group">
+              <div class="ach-label">&#127942; Podium Finishes</div>
+              <div class="ach-items">
+                <div class="ach-item"><span class="ei">&#129351;</span><span><strong>1st</strong> — District Level Chess Competition</span></div>
+                <div class="ach-item"><span class="ei">&#129352;</span><span><strong>2nd</strong> — Sansad Khel Mahotsav, ITM University</span></div>
+              </div>
+            </div>
+            <div class="ach-group">
+              <div class="ach-label">&#127966; Tournament Record</div>
+              <div class="ach-items">
+                <div class="ach-item"><span class="ei">&#127979;</span><span><strong>CBSE East Zonal</strong>, Kharagpur (West Bengal) — scored <strong>2/5 points</strong></span></div>
+                <div class="ach-item"><span class="ei">&#127885;</span><span>Won <strong>10+ medals</strong> across competitive chess events</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="coach-trust rv">
+        <p>Both coaches have competed under <strong>real tournament pressure</strong> at state, district, and national zonal levels. They don't just teach chess — they <strong style="color:var(--gold)">live it.</strong></p>
+        <button class="btn btn-gold" onclick="goTo('contact')">&#9823; Enroll Now</button>
+      </div>
+
+    </div>
+  </section>
+</div><!-- /coaches -->
+
+
+<!-- =============================================
+     CONTACT PAGE
+============================================= -->
+<div class="page" id="page-contact">
+  <section class="section">
+    <div class="wrap">
+      <div class="center rv">
+        <span class="label">Get In Touch</span>
+        <h2 class="heading">Start Your <span class="gold">Chess Journey</span> Today</h2>
+        <div class="gold-bar"></div>
+        <p class="lead">Reach out to enroll, ask questions, or visit us in New Raipur.</p>
+      </div>
+      <div class="contact-grid rv" style="margin-top:48px">
+        <div class="contact-blocks">
+          <div class="card cblock">
+            <div class="cblock-title">&#128222; Phone</div>
+            <div class="cblock-val"><a href="tel:8435745001">8435745001</a><br><a href="tel:7389614069">7389614069</a></div>
+          </div>
+          <div class="card cblock">
+            <div class="cblock-title">&#128205; Location</div>
+            <div class="cblock-val">New Raipur<br><span style="font-size:0.84rem;color:var(--muted)">Chhattisgarh, India</span></div>
+          </div>
+          <div class="card cblock">
+            <div class="cblock-title">&#9200; Coaching Hours</div>
+            <div class="cblock-val">Monday – Saturday<br><span style="font-size:0.84rem;color:var(--muted)">Call to confirm batch timings</span></div>
+          </div>
+          <div class="card cblock cblock-hl">
+            <div class="cblock-title">&#127881; Launch Offer</div>
+            <div class="cblock-val" style="color:var(--gold2)">&#8377;200 Discount for first 10 students</div>
+          </div>
+          <a class="btn btn-gold" style="justify-content:center;display:flex" href="tel:8435745001">&#128222; Call Us Now</a>
+        </div>
+        <div class="contact-form-wrap">
+          <div class="card contact-form">
+            <div class="form-title">Send a Message</div>
+            <div class="form-sub">We'll get back to you within 24 hours.</div>
+            <div class="form-group">
+              <label class="form-label" for="fName">Your Name</label>
+              <input type="text" class="form-input" id="fName" name="name" autocomplete="name" placeholder="e.g. Rahul Sharma">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="fPhone">Phone Number</label>
+              <input type="tel" class="form-input" id="fPhone" name="tel" autocomplete="tel" placeholder="e.g. 9876543210">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="fMsg">Message</label>
+              <textarea class="form-textarea" id="fMsg" name="message" placeholder="I'd like to know more about enrollment..."></textarea>
+            </div>
+            <button class="form-btn" onclick="sendForm()">&#9823; Send Message</button>
+            <div class="form-ok" id="fok">&#10003; Thank you! We'll call you back soon.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div><!-- /contact -->
+
+</main>
+
+<!-- =============================================
+     FOOTER
+============================================= -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-name">Victory Chess Academy</div>
+        <div class="footer-tag">New Raipur's First Chess Coaching Academy</div>
+        <div class="footer-ci"><span class="icon">&#128222;</span><span>8435745001 / 7389614069</span></div>
+        <div class="footer-ci"><span class="icon">&#128205;</span><span>New Raipur, Chhattisgarh</span></div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-h">Navigate</div>
+        <div class="footer-links">
+          <button class="footer-link" onclick="goTo('home')">Home</button>
+          <button class="footer-link" onclick="goTo('about')">About Us</button>
+          <button class="footer-link" onclick="goTo('courses')">Courses &amp; Pricing</button>
+          <button class="footer-link" onclick="goTo('coaches')">Our Coaches</button>
+          <button class="footer-link" onclick="goTo('contact')">Contact</button>
+        </div>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-h">Pricing</div>
+        <div class="footer-links">
+          <button class="footer-link" onclick="goTo('courses')">1.5 Hrs/day — &#8377;1000/mo</button>
+          <button class="footer-link" onclick="goTo('courses')">3 Hrs/day — &#8377;1500/mo</button>
+          <button class="footer-link" style="color:var(--gold)" onclick="goTo('contact')">&#8377;200 Launch Discount</button>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">&copy; 2024 <strong>Victory Chess Academy</strong>. New Raipur, Chhattisgarh.</div>
+      <div class="footer-pieces">&#9812; &#9813; &#9814; &#9815; &#9816; &#9817;</div>
+    </div>
+  </div>
+</footer>
+
+<!-- =============================================
+     JAVASCRIPT — clean, no dependencies
+============================================= -->
+<script>
+  // ── PAGE NAVIGATION ──────────────────────────
+  function goTo(id) {
+    var pages = document.querySelectorAll('.page');
+    for (var i = 0; i < pages.length; i++) {
+      pages[i].classList.remove('active');
+    }
+    var target = document.getElementById('page-' + id);
+    if (target) target.classList.add('active');
+
+    var links = document.querySelectorAll('.nav-link');
+    for (var j = 0; j < links.length; j++) {
+      links[j].classList.remove('active');
+      if (links[j].getAttribute('data-p') === id) links[j].classList.add('active');
+    }
+
+    window.scrollTo(0, 0);
+    setTimeout(runReveal, 100);
+  }
+
+  // ── MOBILE MENU ──────────────────────────────
+  function toggleMob() {
+    var m = document.getElementById('mob-menu');
+    if (m.classList.contains('open')) {
+      m.classList.remove('open');
+    } else {
+      m.classList.add('open');
+    }
+  }
+  function closeMob() {
+    var m = document.getElementById('mob-menu');
+    if (m) m.classList.remove('open');
+  }
+  document.addEventListener('click', function(e) {
+    var menu = document.getElementById('mob-menu');
+    var ham  = document.getElementById('ham');
+    if (menu && ham && !menu.contains(e.target) && !ham.contains(e.target)) {
+      menu.classList.remove('open');
+    }
+  });
+
+  // ── NAVBAR SHADOW ON SCROLL ───────────────────
+  window.addEventListener('scroll', function() {
+    var nav = document.getElementById('nav');
+    if (nav) {
+      nav.style.boxShadow = window.pageYOffset > 10
+        ? '0 2px 24px rgba(0,0,0,0.5)'
+        : 'none';
+    }
+  });
+
+  // ── SCROLL REVEAL ─────────────────────────────
+  function runReveal() {
+    var items = document.querySelectorAll('.page.active .rv:not(.in)');
+    if (!items.length) return;
+
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry, i) {
+          if (entry.isIntersecting) {
+            (function(el, delay) {
+              setTimeout(function() { el.classList.add('in'); }, delay);
+            })(entry.target, i * 65);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.07 });
+      items.forEach(function(el) { observer.observe(el); });
+    } else {
+      // Fallback for old browsers — show immediately
+      items.forEach(function(el) { el.classList.add('in'); });
+    }
+  }
+  runReveal();
+
+  // ── CHESS BOARD (ABOUT PAGE) ──────────────────
+  function buildBoard() {
+    var board = document.getElementById('chessBoard');
+    if (!board) return;
+    var pieces = {
+      0:'&#9820;',1:'&#9822;',2:'&#9821;',3:'&#9819;',4:'&#9818;',5:'&#9821;',6:'&#9822;',7:'&#9820;',
+      8:'&#9823;',9:'&#9823;',10:'&#9823;',11:'&#9823;',12:'&#9823;',13:'&#9823;',14:'&#9823;',15:'&#9823;',
+      48:'&#9817;',49:'&#9817;',50:'&#9817;',51:'&#9817;',52:'&#9817;',53:'&#9817;',54:'&#9817;',55:'&#9817;',
+      56:'&#9814;',57:'&#9816;',58:'&#9815;',59:'&#9813;',60:'&#9812;',61:'&#9815;',62:'&#9816;',63:'&#9814;'
+    };
+    board.innerHTML = '';
+    for (var i = 0; i < 64; i++) {
+      var sq = document.createElement('div');
+      var row = Math.floor(i / 8), col = i % 8;
+      sq.className = 'bs ' + (((row + col) % 2 === 0) ? 'l' : 'd');
+      if (pieces[i]) {
+        sq.innerHTML = pieces[i];
+        sq.style.color = (i < 16) ? 'rgba(201,168,76,0.65)' : 'rgba(245,242,236,0.55)';
+        sq.style.fontSize = '0.9rem';
+      }
+      board.appendChild(sq);
+    }
+  }
+  buildBoard();
+
+  // ── CONTACT FORM ──────────────────────────────
+  function sendForm() {
+    var name  = document.getElementById('fName').value.trim();
+    var phone = document.getElementById('fPhone').value.trim();
+    if (!name || !phone) {
+      alert('Please enter your name and phone number.');
+      return;
+    }
+    var ok = document.getElementById('fok');
+    if (ok) ok.style.display = 'block';
+    document.getElementById('fName').value  = '';
+    document.getElementById('fPhone').value = '';
+    document.getElementById('fMsg').value   = '';
+    setTimeout(function() {
+      var el = document.getElementById('fok');
+      if (el) el.style.display = 'none';
+    }, 5000);
+  }
+</script>
+
+</body>
+</html>
